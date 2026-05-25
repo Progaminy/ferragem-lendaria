@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="pt-MZ">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ferragem Lendária — Moçambique</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+
+<!-- ===== LOADER ===== -->
+<div id="loader" class="loader">
+  <div class="loader-inner">
+    <div class="loader-gear">⚙</div>
+    <div class="loader-text">FERRAGEM LENDÁRIA</div>
+  </div>
+</div>
+
+<!-- ===== HEADER ===== -->
+<header class="header" id="header">
+  <div class="header-inner">
+    <a href="index.html" class="logo">
+      <span class="logo-icon">⚙</span>
+      <div class="logo-text">
+        <span class="logo-main">FERRAGEM</span>
+        <span class="logo-sub">LENDÁRIA</span>
+      </div>
+    </a>
+
+    <nav class="nav">
+      <a href="#inicio" class="nav-link">Início</a>
+      <a href="#categorias" class="nav-link">Categorias</a>
+      <a href="#produtos" class="nav-link">Produtos</a>
+      <a href="#contato" class="nav-link">Contacto</a>
+    </nav>
+
+    <div class="header-actions">
+      <button class="cart-btn" id="cartBtn" onclick="toggleCart()">
+        🛒 <span class="cart-count" id="cartCount">0</span>
+      </button>
+      <a href="pages/admin.html" class="admin-link">Admin</a>
+    </div>
+  </div>
+</header>
+
+<!-- ===== HERO / CARROSSEL ===== -->
+<section class="hero" id="inicio">
+  <div class="hero-slider" id="heroSlider">
+
+    <div class="slide active" style="--slide-bg: #1a0a00;">
+      <div class="slide-img-wrap">
+        <img src="https://images.unsplash.com/photo-1504148455328-c376907d081c?w=1400&q=80" alt="Ferramentas" class="slide-img" />
+        <div class="slide-overlay"></div>
+      </div>
+      <div class="slide-content">
+        <span class="slide-tag">Nova Colecção</span>
+        <h1 class="slide-title">Ferramentas<br/><em>de Qualidade</em></h1>
+        <p class="slide-desc">As melhores marcas ao melhor preço em Moçambique</p>
+        <a href="#produtos" class="slide-btn">Ver Produtos</a>
+      </div>
+    </div>
+
+    <div class="slide" style="--slide-bg: #001a0a;">
+      <div class="slide-img-wrap">
+        <img src="https://images.unsplash.com/photo-1581092335397-9583eb92d232?w=1400&q=80" alt="Construção" class="slide-img" />
+        <div class="slide-overlay"></div>
+      </div>
+      <div class="slide-content">
+        <span class="slide-tag">Materiais de Construção</span>
+        <h1 class="slide-title">Construa<br/><em>o seu Sonho</em></h1>
+        <p class="slide-desc">Cimento, tintas e materiais para toda a sua obra</p>
+        <a href="#categorias" class="slide-btn">Ver Categorias</a>
+      </div>
+    </div>
+
+    <div class="slide" style="--slide-bg: #1a1000;">
+      <div class="slide-img-wrap">
+        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1400&q=80" alt="Elétrica" class="slide-img" />
+        <div class="slide-overlay"></div>
+      </div>
+      <div class="slide-content">
+        <span class="slide-tag">Material Elétrico</span>
+        <h1 class="slide-title">Ilumina<br/><em>o seu Espaço</em></h1>
+        <p class="slide-desc">Cabos, disjuntores, lâmpadas LED e muito mais</p>
+        <a href="#produtos" class="slide-btn">Comprar Agora</a>
+      </div>
+    </div>
+
+    <div class="slide" style="--slide-bg: #0a001a;">
+      <div class="slide-img-wrap">
+        <img src="https://images.unsplash.com/photo-1572981779307-38b8cabb2407?w=1400&q=80" alt="Segurança" class="slide-img" />
+        <div class="slide-overlay"></div>
+      </div>
+      <div class="slide-content">
+        <span class="slide-tag">Equipamento de Segurança</span>
+        <h1 class="slide-title">Trabalhe<br/><em>com Segurança</em></h1>
+        <p class="slide-desc">EPI's e equipamentos de proteção individual</p>
+        <a href="#produtos" class="slide-btn">Ver EPI's</a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="slider-controls">
+    <button class="slider-prev" onclick="changeSlide(-1)">‹</button>
+    <div class="slider-dots" id="sliderDots"></div>
+    <button class="slider-next" onclick="changeSlide(1)">›</button>
+  </div>
+
+  <div class="hero-strip">
+    <div class="strip-marquee">
+      <span>⚡ ENTREGA RÁPIDA</span>
+      <span>🔧 QUALIDADE GARANTIDA</span>
+      <span>💰 MELHORES PREÇOS</span>
+      <span>📦 ESTOQUE AMPLO</span>
+      <span>🏆 FERRAGEM LENDÁRIA</span>
+      <span>⚡ ENTREGA RÁPIDA</span>
+      <span>🔧 QUALIDADE GARANTIDA</span>
+      <span>💰 MELHORES PREÇOS</span>
+      <span>📦 ESTOQUE AMPLO</span>
+      <span>🏆 FERRAGEM LENDÁRIA</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CATEGORIAS ===== -->
+<section class="section" id="categorias">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">Explore</span>
+      <h2 class="section-title">Nossas <em>Categorias</em></h2>
+      <p class="section-sub">Encontre tudo o que precisa para sua obra ou projecto</p>
+    </div>
+    <div class="categories-grid" id="categoriesGrid">
+      <!-- Gerado via JS -->
+      <div class="loading-placeholder">A carregar categorias...</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PRODUTOS ===== -->
+<section class="section section-dark" id="produtos">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">Catálogo</span>
+      <h2 class="section-title">Nossos <em>Produtos</em></h2>
+    </div>
+
+    <div class="products-toolbar">
+      <input type="text" class="search-input" id="searchInput" placeholder="🔍 Pesquisar produto..." oninput="filterProducts()" />
+      <select class="filter-select" id="categoryFilter" onchange="filterProducts()">
+        <option value="">Todas as categorias</option>
+      </select>
+      <select class="filter-select" id="sortFilter" onchange="filterProducts()">
+        <option value="nome">Nome A-Z</option>
+        <option value="preco_asc">Menor Preço</option>
+        <option value="preco_desc">Maior Preço</option>
+      </select>
+    </div>
+
+    <div class="products-grid" id="productsGrid">
+      <div class="loading-placeholder">A carregar produtos...</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CONTATO ===== -->
+<section class="section" id="contato">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">Fale Connosco</span>
+      <h2 class="section-title">Estamos <em>Aqui</em></h2>
+    </div>
+    <div class="contact-grid">
+      <a href="https://wa.me/25872599084" target="_blank" class="contact-card contact-whatsapp">
+        <div class="contact-icon">📱</div>
+        <div class="contact-info">
+          <h3>WhatsApp</h3>
+          <p>+258 72 599 084</p>
+          <span>Resposta imediata</span>
+        </div>
+      </a>
+      <a href="tel:+25872599084" class="contact-card contact-phone">
+        <div class="contact-icon">📞</div>
+        <div class="contact-info">
+          <h3>Telefone</h3>
+          <p>+258 72 599 084</p>
+          <span>Seg–Sáb: 7h–18h</span>
+        </div>
+      </a>
+      <a href="mailto:adaddasmaravilhas@gmail.com" class="contact-card contact-email">
+        <div class="contact-icon">📧</div>
+        <div class="contact-info">
+          <h3>Email</h3>
+          <p>adaddasmaravilhas@gmail.com</p>
+          <span>Resposta em 24h</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo">
+          <span class="logo-icon">⚙</span>
+          <div class="logo-text">
+            <span class="logo-main">FERRAGEM</span>
+            <span class="logo-sub">LENDÁRIA</span>
+          </div>
+        </div>
+        <p>A sua loja de referência em materiais de construção e ferramentas em Moçambique.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Categorias</h4>
+        <a href="#categorias">Ferramentas Manuais</a>
+        <a href="#categorias">Ferramentas Elétricas</a>
+        <a href="#categorias">Material Elétrico</a>
+        <a href="#categorias">Tintas e Acabamentos</a>
+      </div>
+      <div class="footer-links">
+        <h4>Empresa</h4>
+        <a href="#inicio">Sobre Nós</a>
+        <a href="#contato">Contacto</a>
+        <a href="pages/admin.html">Área Admin</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Ferragem Lendária · Moçambique · Todos os direitos reservados</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ===== CARRINHO LATERAL ===== -->
+<div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+<aside class="cart-panel" id="cartPanel">
+  <div class="cart-header">
+    <h3>🛒 Carrinho</h3>
+    <button onclick="toggleCart()" class="cart-close">✕</button>
+  </div>
+  <div class="cart-items" id="cartItems">
+    <div class="cart-empty">
+      <span>🛒</span>
+      <p>Carrinho vazio</p>
+    </div>
+  </div>
+  <div class="cart-footer">
+    <div class="cart-total">
+      <span>Total:</span>
+      <strong id="cartTotal">0,00 MT</strong>
+    </div>
+    <div class="cart-footer-actions">
+      <button class="btn-clear" onclick="clearCart()">Limpar</button>
+      <button class="btn-invoice" onclick="generateInvoice()">📄 Gerar Fatura PDF</button>
+    </div>
+  </div>
+</aside>
+
+<!-- ===== MODAL PRODUTO ===== -->
+<div class="modal-overlay" id="productModal" onclick="closeProductModal(event)">
+  <div class="modal-box">
+    <button class="modal-close" onclick="document.getElementById('productModal').classList.remove('active')">✕</button>
+    <div id="modalContent"></div>
+  </div>
+</div>
+
+<script type="module">
+  import { db } from '../js/supabase-config.js';
+  window.db = db;
+</script>
+<script src="js/store.js"></script>
+</body>
+</html>

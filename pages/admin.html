@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="pt-MZ">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin — Ferragem Lendária</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/admin.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body class="admin-body">
+
+<!-- ===== LOGIN SCREEN ===== -->
+<div class="login-screen" id="loginScreen">
+  <div class="login-bg-gear">⚙</div>
+  <div class="login-box">
+    <div class="login-logo">
+      <span class="logo-icon" style="font-size:3rem; animation:spin 8s linear infinite; display:inline-block; color:var(--orange); filter:drop-shadow(0 0 12px var(--orange));">⚙</span>
+      <div class="logo-text">
+        <span class="logo-main">FERRAGEM</span>
+        <span class="logo-sub">LENDÁRIA</span>
+      </div>
+    </div>
+    <h2 class="login-title">Painel Admin</h2>
+    <p class="login-sub">Acesso restrito · autenticado via Supabase</p>
+
+    <!-- AUTH TABS -->
+    <div class="auth-tabs">
+      <button class="auth-tab active" id="tabLogin" onclick="switchAuthTab('login')">Entrar</button>
+      <button class="auth-tab" id="tabReset" onclick="switchAuthTab('reset')">Recuperar Senha</button>
+    </div>
+
+    <!-- LOGIN FORM -->
+    <div id="formLogin" class="login-form">
+      <div class="input-wrap">
+        <span class="input-icon">📧</span>
+        <input type="email" id="loginEmail" class="login-input" placeholder="Email do administrador" autocomplete="email" />
+      </div>
+      <div class="input-wrap">
+        <span class="input-icon">🔒</span>
+        <input type="password" id="loginPass" class="login-input" placeholder="Senha" autocomplete="current-password" />
+        <button class="toggle-pass" onclick="togglePassword()" id="togglePassBtn">👁</button>
+      </div>
+      <div id="loginError" class="auth-error" style="display:none;"></div>
+      <button class="login-btn" id="loginBtn" onclick="doSupabaseLogin()">
+        <span id="loginBtnText">Entrar com Supabase</span>
+        <span id="loginBtnLoader" style="display:none;">⏳ A autenticar...</span>
+      </button>
+      <div class="login-setup-hint">
+        <details>
+          <summary>Como configurar o acesso admin?</summary>
+          <ol>
+            <li>Acesse <a href="https://app.supabase.com" target="_blank">app.supabase.com</a></li>
+            <li>Vá em <strong>Authentication → Users → Add User</strong></li>
+            <li>Crie o utilizador admin com email e senha</li>
+            <li>Adicione as suas credenciais Supabase em <code>js/supabase-config.js</code></li>
+          </ol>
+        </details>
+      </div>
+    </div>
+
+    <!-- RESET FORM -->
+    <div id="formReset" class="login-form" style="display:none;">
+      <div class="input-wrap">
+        <span class="input-icon">📧</span>
+        <input type="email" id="resetEmail" class="login-input" placeholder="Email da conta admin" />
+      </div>
+      <div id="resetMsg" class="auth-success" style="display:none;"></div>
+      <button class="login-btn" onclick="doPasswordReset()">Enviar Link de Recuperação</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== ADMIN DASHBOARD ===== -->
+<div class="admin-layout" id="adminDash" style="display:none;">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <span style="font-size:1.75rem; color:var(--orange);">⚙</span>
+      <div>
+        <div style="font-family:var(--font-display); font-size:1.1rem; letter-spacing:0.1em;">FERRAGEM</div>
+        <div style="font-family:var(--font-display); font-size:0.7rem; letter-spacing:0.25em; color:var(--orange);">LENDÁRIA · ADMIN</div>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <button class="nav-item active" onclick="showTab('dashboard', this)">📊 Dashboard</button>
+      <button class="nav-item" onclick="showTab('products', this)">📦 Produtos</button>
+      <button class="nav-item" onclick="showTab('categories', this)">🏷️ Categorias</button>
+      <button class="nav-item" onclick="showTab('sales', this)">🧾 Vendas</button>
+      <button class="nav-item" onclick="showTab('stock', this)">📋 Estoque</button>
+      <button class="nav-item" onclick="showTab('debts', this)">💰 Dívidas</button>
+      <button class="nav-item" id="notifNavBtn" onclick="showTab('notifications', this)">
+        🔔 Notificações
+        <span class="notif-badge" id="notifBadge" style="display:none;">0</span>
+      </button>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="admin-user-info" id="adminUserInfo">
+        <span class="user-avatar">👤</span>
+        <span class="user-email" id="userEmail">admin</span>
+      </div>
+      <a href="../index.html" class="nav-item" style="text-decoration:none;">🏠 Ver Loja</a>
+      <button class="nav-item logout-btn" onclick="doLogout()">🚪 Terminar Sessão</button>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="admin-main">
+
+    <!-- TOP BAR -->
+    <header class="admin-topbar">
+      <div>
+        <h1 class="topbar-title" id="topbarTitle">Dashboard</h1>
+        <p class="topbar-sub" id="topbarSub">Visão geral da loja</p>
+      </div>
+      <div class="topbar-actions">
+        <button class="btn-orange" onclick="checkLowStock()">🔍 Verificar Estoque</button>
+        <button class="notif-btn" onclick="showTab('notifications', document.getElementById('notifNavBtn'))">
+          🔔 <span id="topNotifCount" class="cart-count">0</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- DASHBOARD TAB -->
+    <div class="tab-content active" id="tab-dashboard">
+      <div class="stats-grid">
+        <div class="stat-card"><div class="stat-icon">📦</div><div class="stat-info"><span id="statProducts">0</span><p>Produtos</p></div></div>
+        <div class="stat-card"><div class="stat-icon">🏷️</div><div class="stat-info"><span id="statCategories">0</span><p>Categorias</p></div></div>
+        <div class="stat-card warning"><div class="stat-icon">⚠️</div><div class="stat-info"><span id="statLowStock">0</span><p>Stock Baixo</p></div></div>
+        <div class="stat-card"><div class="stat-icon">🧾</div><div class="stat-info"><span id="statSales">0</span><p>Vendas</p></div></div>
+        <div class="stat-card success"><div class="stat-icon">💰</div><div class="stat-info"><span id="statRevenue">0 MT</span><p>Receita Total</p></div></div>
+        <div class="stat-card danger"><div class="stat-icon">📉</div><div class="stat-info"><span id="statDebtsOwed">0 MT</span><p>Dívidas a Pagar</p></div></div>
+      </div>
+      <div class="dash-grid">
+        <div class="dash-card"><h3>⚠️ Stock Baixo / Esgotado</h3><div id="lowStockList" class="list-content">A carregar...</div></div>
+        <div class="dash-card"><h3>🧾 Últimas Vendas</h3><div id="recentSalesList" class="list-content">A carregar...</div></div>
+        <div class="dash-card"><h3>💰 Dívidas Recentes</h3><div id="recentDebtsList" class="list-content">A carregar...</div></div>
+      </div>
+    </div>
+
+    <!-- PRODUCTS TAB -->
+    <div class="tab-content" id="tab-products">
+      <div class="tab-toolbar">
+        <input type="text" class="search-input" id="prodSearch" placeholder="🔍 Pesquisar produto..." oninput="renderAdminProducts()" />
+        <select class="filter-select" id="prodCatFilter" onchange="renderAdminProducts()">
+          <option value="">Todas as categorias</option>
+        </select>
+        <button class="btn-orange" onclick="openProductForm()">+ Novo Produto</button>
+      </div>
+      <div class="admin-table-wrap">
+        <table class="admin-table">
+          <thead><tr><th>Produto</th><th>Categoria</th><th>Preço (MT)</th><th>Stock</th><th>Mín.</th><th>Status</th><th>Ações</th></tr></thead>
+          <tbody id="productsBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- CATEGORIES TAB -->
+    <div class="tab-content" id="tab-categories">
+      <div class="tab-toolbar">
+        <button class="btn-orange" onclick="openCategoryForm()">+ Nova Categoria</button>
+      </div>
+      <div class="categories-admin-grid" id="categoriesAdminGrid"></div>
+    </div>
+
+    <!-- SALES TAB -->
+    <div class="tab-content" id="tab-sales">
+      <div class="tab-toolbar">
+        <button class="btn-orange" onclick="openSaleForm()">+ Registar Venda Manual</button>
+        <input type="date" class="filter-select" id="salesDateFilter" onchange="renderSales()" />
+      </div>
+      <div class="admin-table-wrap">
+        <table class="admin-table">
+          <thead><tr><th>Fatura</th><th>Cliente</th><th>Total</th><th>Data</th><th>Pagamento</th><th>Status</th><th>Ações</th></tr></thead>
+          <tbody id="salesBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- STOCK TAB -->
+    <div class="tab-content" id="tab-stock">
+      <div class="tab-toolbar">
+        <button class="btn-orange" onclick="openPurchaseForm()">+ Registar Compra / Entrada</button>
+      </div>
+      <div class="admin-table-wrap">
+        <table class="admin-table">
+          <thead><tr><th>Produto</th><th>Qtd. Entrada</th><th>Fornecedor</th><th>Custo Unit.</th><th>Data</th></tr></thead>
+          <tbody id="stockBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- DEBTS TAB -->
+    <div class="tab-content" id="tab-debts">
+      <div class="tab-toolbar">
+        <button class="btn-orange" onclick="openDebtForm('a_receber')">+ A Receber</button>
+        <button class="btn-gold" onclick="openDebtForm('a_pagar')">+ A Pagar</button>
+        <select class="filter-select" id="debtFilter" onchange="renderDebts()">
+          <option value="">Todas</option>
+          <option value="a_receber">A Receber</option>
+          <option value="a_pagar">A Pagar</option>
+          <option value="pendente">Pendentes</option>
+          <option value="pago">Pagas</option>
+        </select>
+      </div>
+      <div class="debts-summary" id="debtsSummary"></div>
+      <div class="admin-table-wrap">
+        <table class="admin-table">
+          <thead><tr><th>Tipo</th><th>Contacto</th><th>Descrição</th><th>Valor</th><th>Pago</th><th>Vencimento</th><th>Status</th><th>Ações</th></tr></thead>
+          <tbody id="debtsBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- NOTIFICATIONS TAB -->
+    <div class="tab-content" id="tab-notifications">
+      <div class="tab-toolbar">
+        <button class="btn-orange" onclick="markAllRead()">✓ Marcar Tudo como Lido</button>
+        <button class="btn-clear" onclick="clearAllNotifications()">🗑 Limpar Todas</button>
+      </div>
+      <div id="notificationsList" class="notifications-list"></div>
+    </div>
+
+  </main>
+</div>
+
+<!-- ===== MODAL ===== -->
+<div class="modal-overlay" id="adminModal" onclick="closeAdminModal(event)">
+  <div class="modal-box modal-large">
+    <button class="modal-close" onclick="document.getElementById('adminModal').classList.remove('active')">✕</button>
+    <h2 class="modal-title" id="modalTitle">Formulário</h2>
+    <div id="adminModalContent"></div>
+  </div>
+</div>
+
+<div class="toast-container"></div>
+
+<script>
+  // Bootstrap: expose db & Auth before admin.js loads
+  const { createClient } = supabase;
+  const SUPA_URL = 'https://SEU_PROJECT_ID.supabase.co';
+  const SUPA_KEY = 'SUA_ANON_KEY_AQUI';
+  window.db = createClient(SUPA_URL, SUPA_KEY);
+  window.Auth = {
+    async signIn(email, password) {
+      const { data, error } = await window.db.auth.signInWithPassword({ email, password });
+      if (error) throw error;
+      return data;
+    },
+    async signOut() { await window.db.auth.signOut(); },
+    async getSession() { const { data } = await window.db.auth.getSession(); return data.session; },
+    async resetPassword(email) {
+      const { error } = await window.db.auth.resetPasswordForEmail(email, {
+        redirectTo: window.location.origin + '/pages/admin.html'
+      });
+      if (error) throw error;
+    },
+    onAuthChange(cb) { return window.db.auth.onAuthStateChange(cb); }
+  };
+</script>
+<script src="../js/admin.js"></script>
+</body>
+</html>
