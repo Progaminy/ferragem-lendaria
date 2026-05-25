@@ -327,7 +327,7 @@ function openProductForm(id=null) {
           ${['un','cx','kg','saco','rolo','balde','par','m','m²','L'].map(u=>`<option value="${u}"${p?.unidade===u?' selected':''}>${u}</option>`).join('')}
         </select>
       </div>
-      <div class="form-group"><label class="form-label">URL da Imagem</label><input class="form-input" id="fImg" value="${p?.imagem_url||''}" placeholder="https://..." /></div>
+      <div class="form-group"><label class="form-label">URL da Imagem</label><input class="form-input" id="fImg" value="${p?.imagem_url||''}" placeholder="https://..."</div>
     </div>
     <div class="form-footer">
       <button class="btn-clear" onclick="document.getElementById('adminModal').classList.remove('active')">Cancelar</button>
