@@ -140,4 +140,3 @@ Para o Admin: abra `pages/admin.html`.
 - [ ] Multi-utilizador com papéis (admin, vendedor, caixa)
 - [ ] Código de barras / QR Code nos produtos
 - [ ] Encomendas online com entrega
-# ferragem-lendaria

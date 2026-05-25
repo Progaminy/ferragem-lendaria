@@ -270,7 +270,10 @@ function renderDashboard() {
 function renderAdminProducts() {
   const q   = (document.getElementById('prodSearch')?.value||'').toLowerCase();
   const cat = document.getElementById('prodCatFilter')?.value||'';
-  const list= adminData.products.filter(p=>p.nome.toLowerCase().includes(q)&&(!cat||p.categoria_id===cat));
+  const list= adminData.products.filter(p=>{
+    const ms = p.nome.toLowerCase().includes(q) || String(p.id).toLowerCase().includes(q) || (p.descricao||'').toLowerCase().includes(q);
+    return ms && (!cat||p.categoria_id===cat);
+  });
   const tbody= document.getElementById('productsBody');
   if(!list.length){tbody.innerHTML='<tr><td colspan="7" style="text-align:center;padding:2rem;color:var(--gray-light)">Sem produtos</td></tr>';return;}
   tbody.innerHTML = list.map(p=>{
@@ -278,7 +281,10 @@ function renderAdminProducts() {
     const ss= p.quantidade===0?'badge-danger':p.quantidade<=p.quantidade_minima?'badge-warn':'badge-ok';
     const sl= p.quantidade===0?'Esgotado':p.quantidade<=p.quantidade_minima?'Stock Baixo':'OK';
     return `<tr>
-      <td><strong style="color:var(--white)">${p.nome}</strong><br/><small style="color:var(--gray-light)">${(p.descricao||'').slice(0,50)}</small></td>
+      <td>
+        <span style="font-size:.65rem;font-family:monospace;background:var(--black-4);color:var(--gray-light);padding:.1rem .4rem;border-radius:3px;display:inline-block;margin-bottom:.25rem">ID: ${p.id}</span><br/>
+        <strong style="color:var(--white)">${p.nome}</strong><br/><small style="color:var(--gray-light)">${(p.descricao||'').slice(0,50)}</small>
+      </td>
       <td>${c?.icone||''} ${c?.nome||'—'}</td>
       <td style="color:var(--orange);font-family:var(--font-head);font-weight:700">${fmz(p.preco)} MT</td>
       <td><div class="stock-inline"><input type="number" id="sq_${p.id}" value="${p.quantidade}" min="0" /><button class="btn-sm btn-edit" onclick="updateStockInline('${p.id}')">✓</button></div></td>
@@ -465,25 +471,63 @@ function openSaleForm() {
 function addSaleItem() {
   window._saleItemIdx = (window._saleItemIdx||0)+1;
   const sid='si_'+window._saleItemIdx;
-  const opts=adminData.products.map(p=>`<option value="${p.id}" data-price="${p.preco}">${p.nome}</option>`).join('');
+  // Only show active products with stock info
+  const opts = adminData.products
+    .filter(p => p.ativo !== false)
+    .map(p => {
+      const stock = p.quantidade || 0;
+      const label = `${p.nome} — ${fmz(p.preco)} MT (stock: ${stock} ${p.unidade||'un'})`;
+      return `<option value="${p.id}" data-price="${p.preco}" data-stock="${stock}" data-unit="${p.unidade||'un'}" ${stock===0?'style="color:#f87171"':''}>${label}</option>`;
+    }).join('');
+
   const div=document.createElement('div');
-  div.id=sid; div.style.cssText='display:grid;grid-template-columns:1fr 80px auto auto;gap:.5rem;align-items:center';
-  div.innerHTML=`<select class="form-select" onchange="updateSaleTotal()">${opts}</select>
-    <input class="form-input" type="number" value="1" min="1" oninput="updateSaleTotal()" />
-    <span style="color:var(--orange);font-family:var(--font-head);white-space:nowrap;min-width:90px" class="isub">0 MT</span>
-    <button class="btn-sm btn-del" onclick="document.getElementById('${sid}').remove();updateSaleTotal()">✕</button>`;
+  div.id=sid;
+  div.style.cssText='display:grid;grid-template-columns:1fr 90px auto auto;gap:.5rem;align-items:start;background:var(--black-3);padding:.75rem;border-radius:6px;border:1px solid rgba(255,255,255,.05)';
+  div.innerHTML=`
+    <div>
+      <select class="form-select" style="width:100%" onchange="onSaleItemChange('${sid}')">${opts}</select>
+      <div class="sale-item-stock-info" id="stock_${sid}" style="font-size:.75rem;margin-top:.3rem;color:var(--gray-light)"></div>
+    </div>
+    <div>
+      <input class="form-input" type="number" value="1" min="1" style="width:100%;text-align:center" id="qty_${sid}" oninput="updateSaleTotal()" />
+      <div class="sale-qty-warn" id="warn_${sid}" style="font-size:.7rem;color:#f87171;margin-top:.2rem;display:none">⚠ Excede stock!</div>
+    </div>
+    <span style="color:var(--orange);font-family:var(--font-head);white-space:nowrap;padding-top:.75rem;min-width:100px;text-align:right" class="isub">0 MT</span>
+    <button class="btn-sm btn-del" style="margin-top:.4rem" onclick="document.getElementById('${sid}').remove();updateSaleTotal()">✕</button>`;
   document.getElementById('saleItems').appendChild(div);
+  onSaleItemChange(sid);
+}
+
+function onSaleItemChange(sid) {
+  const row = document.getElementById(sid); if(!row) return;
+  const sel  = row.querySelector('select');
+  const opt  = sel.selectedOptions[0];
+  const stock= parseInt(opt?.dataset.stock||0);
+  const unit = opt?.dataset.unit||'un';
+  const infoEl = document.getElementById('stock_'+sid);
+  if (infoEl) {
+    infoEl.textContent = stock > 0 ? `✓ Disponível: ${stock} ${unit}` : '✕ Sem stock';
+    infoEl.style.color = stock > 0 ? '#4ade80' : '#f87171';
+  }
   updateSaleTotal();
 }
 
 function updateSaleTotal() {
   let total=0;
   document.querySelectorAll('#saleItems>div').forEach(row=>{
-    const sel=row.querySelector('select');
-    const qty=parseFloat(row.querySelector('input').value)||0;
-    const price=parseFloat(sel.selectedOptions[0]?.dataset.price||0);
-    const sub=price*qty; total+=sub;
-    const el=row.querySelector('.isub'); if(el) el.textContent=fmz(sub)+' MT';
+    const sel  = row.querySelector('select'); if(!sel) return;
+    const opt  = sel.selectedOptions[0];
+    const qty  = parseFloat(row.querySelector('input[type="number"]')?.value)||0;
+    const price= parseFloat(opt?.dataset.price||0);
+    const stock= parseInt(opt?.dataset.stock||9999);
+    const sub  = price*qty; total+=sub;
+    const el   = row.querySelector('.isub'); if(el) el.textContent=fmz(sub)+' MT';
+    // warn if exceeds stock
+    const warnId = row.id ? 'warn_'+row.id : null;
+    if (warnId) {
+      const warnEl = document.getElementById(warnId);
+      if (warnEl) warnEl.style.display = (qty > stock && stock > 0) ? 'block' : 'none';
+    }
   });
   document.getElementById('saleTotal').textContent=fmz(total)+' MT';
 }
@@ -491,8 +535,8 @@ function updateSaleTotal() {
 async function saveSale() {
   const items=[];
   document.querySelectorAll('#saleItems>div').forEach(row=>{
-    const sel=row.querySelector('select');
-    const qty=parseInt(row.querySelector('input').value)||0;
+    const sel=row.querySelector('select'); if(!sel) return;
+    const qty=parseInt(row.querySelector('input[type="number"]')?.value)||0;
     const prodId=sel.value;
     const price=parseFloat(sel.selectedOptions[0]?.dataset.price||0);
     if(prodId&&qty>0){
@@ -790,3 +834,24 @@ function fdt(dt){if(!dt)return'—';return new Date(dt).toLocaleDateString('pt-M
 function showToast(msg,type='info'){let c=document.querySelector('.toast-container');if(!c){c=document.createElement('div');c.className='toast-container';document.body.appendChild(c);}const t=document.createElement('div');t.className=`toast ${type}`;t.textContent=msg;c.appendChild(t);setTimeout(()=>t.remove(),3200);}
 function closeAdminModal(e){if(e.target===document.getElementById('adminModal'))document.getElementById('adminModal').classList.remove('active');}
 document.addEventListener('keydown',e=>{if(e.key==='Escape')document.getElementById('adminModal').classList.remove('active');});
+
+// ============================================================
+// MOBILE SIDEBAR
+// ============================================================
+function toggleMobileSidebar() {
+  const sb  = document.getElementById('sidebar');
+  const ov  = document.getElementById('sidebarOverlay');
+  const btn = document.querySelector('.mobile-sidebar-btn');
+  sb?.classList.toggle('mobile-open');
+  ov?.classList.toggle('active');
+  if (btn) btn.textContent = sb?.classList.contains('mobile-open') ? '✕' : '☰';
+}
+// Show mobile sidebar button on small screens
+window.addEventListener('resize', () => {
+  const btn = document.querySelector('.mobile-sidebar-btn');
+  if (btn) btn.style.display = window.innerWidth <= 768 ? 'flex' : 'none';
+});
+window.addEventListener('DOMContentLoaded', () => {
+  const btn = document.querySelector('.mobile-sidebar-btn');
+  if (btn && window.innerWidth <= 768) btn.style.display = 'flex';
+});

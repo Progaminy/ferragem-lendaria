@@ -2,7 +2,7 @@
 <html lang="pt-MZ">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
   <title>Ferragem Lendária — Moçambique</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
@@ -12,7 +12,7 @@
 </head>
 <body>
 
-<!-- ===== LOADER ===== -->
+<!-- LOADER -->
 <div id="loader" class="loader">
   <div class="loader-inner">
     <div class="loader-gear">⚙</div>
@@ -20,7 +20,7 @@
   </div>
 </div>
 
-<!-- ===== HEADER ===== -->
+<!-- HEADER -->
 <header class="header" id="header">
   <div class="header-inner">
     <a href="index.html" class="logo">
@@ -43,19 +43,27 @@
         🛒 <span class="cart-count" id="cartCount">0</span>
       </button>
       <a href="pages/admin.html" class="admin-link">Admin</a>
+      <button class="hamburger" id="mobileMenuBtn" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </div>
+
+  <!-- MOBILE NAV -->
+  <nav class="mobile-nav" id="mobileNav">
+    <a href="#inicio"     class="mobile-nav-link" onclick="document.getElementById('mobileNav').classList.remove('active')">🏠 Início</a>
+    <a href="#categorias" class="mobile-nav-link" onclick="document.getElementById('mobileNav').classList.remove('active')">🏷️ Categorias</a>
+    <a href="#produtos"   class="mobile-nav-link" onclick="document.getElementById('mobileNav').classList.remove('active')">📦 Produtos</a>
+    <a href="#contato"    class="mobile-nav-link" onclick="document.getElementById('mobileNav').classList.remove('active')">📞 Contacto</a>
+    <a href="pages/admin.html" class="mobile-nav-link mobile-admin">⚙ Área Admin</a>
+  </nav>
 </header>
 
-<!-- ===== HERO / CARROSSEL ===== -->
+<!-- HERO -->
 <section class="hero" id="inicio">
   <div class="hero-slider" id="heroSlider">
-
-    <div class="slide active" style="--slide-bg: #1a0a00;">
-      <div class="slide-img-wrap">
-        <img src="https://images.unsplash.com/photo-1504148455328-c376907d081c?w=1400&q=80" alt="Ferramentas" class="slide-img" />
-        <div class="slide-overlay"></div>
-      </div>
+    <div class="slide active" style="--slide-bg:#1a0a00">
+      <div class="slide-img-wrap"><img src="https://images.unsplash.com/photo-1504148455328-c376907d081c?w=1400&q=80" alt="Ferramentas" class="slide-img"/><div class="slide-overlay"></div></div>
       <div class="slide-content">
         <span class="slide-tag">Nova Colecção</span>
         <h1 class="slide-title">Ferramentas<br/><em>de Qualidade</em></h1>
@@ -63,12 +71,8 @@
         <a href="#produtos" class="slide-btn">Ver Produtos</a>
       </div>
     </div>
-
-    <div class="slide" style="--slide-bg: #001a0a;">
-      <div class="slide-img-wrap">
-        <img src="https://images.unsplash.com/photo-1581092335397-9583eb92d232?w=1400&q=80" alt="Construção" class="slide-img" />
-        <div class="slide-overlay"></div>
-      </div>
+    <div class="slide" style="--slide-bg:#001a0a">
+      <div class="slide-img-wrap"><img src="https://images.unsplash.com/photo-1581092335397-9583eb92d232?w=1400&q=80" alt="Construção" class="slide-img"/><div class="slide-overlay"></div></div>
       <div class="slide-content">
         <span class="slide-tag">Materiais de Construção</span>
         <h1 class="slide-title">Construa<br/><em>o seu Sonho</em></h1>
@@ -76,12 +80,8 @@
         <a href="#categorias" class="slide-btn">Ver Categorias</a>
       </div>
     </div>
-
-    <div class="slide" style="--slide-bg: #1a1000;">
-      <div class="slide-img-wrap">
-        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1400&q=80" alt="Elétrica" class="slide-img" />
-        <div class="slide-overlay"></div>
-      </div>
+    <div class="slide" style="--slide-bg:#1a1000">
+      <div class="slide-img-wrap"><img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1400&q=80" alt="Elétrica" class="slide-img"/><div class="slide-overlay"></div></div>
       <div class="slide-content">
         <span class="slide-tag">Material Elétrico</span>
         <h1 class="slide-title">Ilumina<br/><em>o seu Espaço</em></h1>
@@ -89,12 +89,8 @@
         <a href="#produtos" class="slide-btn">Comprar Agora</a>
       </div>
     </div>
-
-    <div class="slide" style="--slide-bg: #0a001a;">
-      <div class="slide-img-wrap">
-        <img src="https://images.unsplash.com/photo-1572981779307-38b8cabb2407?w=1400&q=80" alt="Segurança" class="slide-img" />
-        <div class="slide-overlay"></div>
-      </div>
+    <div class="slide" style="--slide-bg:#0a001a">
+      <div class="slide-img-wrap"><img src="https://images.unsplash.com/photo-1572981779307-38b8cabb2407?w=1400&q=80" alt="Segurança" class="slide-img"/><div class="slide-overlay"></div></div>
       <div class="slide-content">
         <span class="slide-tag">Equipamento de Segurança</span>
         <h1 class="slide-title">Trabalhe<br/><em>com Segurança</em></h1>
@@ -102,56 +98,45 @@
         <a href="#produtos" class="slide-btn">Ver EPI's</a>
       </div>
     </div>
-
   </div>
-
   <div class="slider-controls">
     <button class="slider-prev" onclick="changeSlide(-1)">‹</button>
     <div class="slider-dots" id="sliderDots"></div>
     <button class="slider-next" onclick="changeSlide(1)">›</button>
   </div>
-
   <div class="hero-strip">
     <div class="strip-marquee">
-      <span>⚡ ENTREGA RÁPIDA</span>
-      <span>🔧 QUALIDADE GARANTIDA</span>
-      <span>💰 MELHORES PREÇOS</span>
-      <span>📦 ESTOQUE AMPLO</span>
-      <span>🏆 FERRAGEM LENDÁRIA</span>
-      <span>⚡ ENTREGA RÁPIDA</span>
-      <span>🔧 QUALIDADE GARANTIDA</span>
-      <span>💰 MELHORES PREÇOS</span>
-      <span>📦 ESTOQUE AMPLO</span>
-      <span>🏆 FERRAGEM LENDÁRIA</span>
+      <span>⚡ ENTREGA RÁPIDA</span><span>🔧 QUALIDADE GARANTIDA</span><span>💰 MELHORES PREÇOS</span>
+      <span>📦 ESTOQUE AMPLO</span><span>🏆 FERRAGEM LENDÁRIA</span>
+      <span>⚡ ENTREGA RÁPIDA</span><span>🔧 QUALIDADE GARANTIDA</span><span>💰 MELHORES PREÇOS</span>
+      <span>📦 ESTOQUE AMPLO</span><span>🏆 FERRAGEM LENDÁRIA</span>
     </div>
   </div>
 </section>
 
-<!-- ===== CATEGORIAS ===== -->
+<!-- CATEGORIAS -->
 <section class="section" id="categorias">
   <div class="container">
     <div class="section-header">
       <span class="section-tag">Explore</span>
       <h2 class="section-title">Nossas <em>Categorias</em></h2>
-      <p class="section-sub">Encontre tudo o que precisa para sua obra ou projecto</p>
+      <p class="section-sub">Encontre tudo o que precisa para a sua obra ou projecto</p>
     </div>
     <div class="categories-grid" id="categoriesGrid">
-      <!-- Gerado via JS -->
       <div class="loading-placeholder">A carregar categorias...</div>
     </div>
   </div>
 </section>
 
-<!-- ===== PRODUTOS ===== -->
+<!-- PRODUTOS -->
 <section class="section section-dark" id="produtos">
   <div class="container">
     <div class="section-header">
       <span class="section-tag">Catálogo</span>
       <h2 class="section-title">Nossos <em>Produtos</em></h2>
     </div>
-
     <div class="products-toolbar">
-      <input type="text" class="search-input" id="searchInput" placeholder="🔍 Pesquisar produto..." oninput="filterProducts()" />
+      <input type="text" class="search-input" id="searchInput" placeholder="🔍 Nome, descrição ou ID do produto..." oninput="filterProducts()" />
       <select class="filter-select" id="categoryFilter" onchange="filterProducts()">
         <option value="">Todas as categorias</option>
       </select>
@@ -161,14 +146,13 @@
         <option value="preco_desc">Maior Preço</option>
       </select>
     </div>
-
     <div class="products-grid" id="productsGrid">
       <div class="loading-placeholder">A carregar produtos...</div>
     </div>
   </div>
 </section>
 
-<!-- ===== CONTATO ===== -->
+<!-- CONTACTO -->
 <section class="section" id="contato">
   <div class="container">
     <div class="section-header">
@@ -204,7 +188,7 @@
   </div>
 </section>
 
-<!-- ===== FOOTER ===== -->
+<!-- FOOTER -->
 <footer class="footer">
   <div class="container">
     <div class="footer-grid">
@@ -217,6 +201,10 @@
           </div>
         </div>
         <p>A sua loja de referência em materiais de construção e ferramentas em Moçambique.</p>
+        <div class="footer-contact-mini">
+          <a href="https://wa.me/25872599084">📱 +258 72 599 084</a>
+          <a href="mailto:adaddasmaravilhas@gmail.com">📧 adaddasmaravilhas@gmail.com</a>
+        </div>
       </div>
       <div class="footer-links">
         <h4>Categorias</h4>
@@ -224,21 +212,24 @@
         <a href="#categorias">Ferramentas Elétricas</a>
         <a href="#categorias">Material Elétrico</a>
         <a href="#categorias">Tintas e Acabamentos</a>
+        <a href="#categorias">Cimento e Argamassa</a>
       </div>
       <div class="footer-links">
-        <h4>Empresa</h4>
-        <a href="#inicio">Sobre Nós</a>
+        <h4>Links</h4>
+        <a href="#inicio">Início</a>
+        <a href="#produtos">Produtos</a>
         <a href="#contato">Contacto</a>
         <a href="pages/admin.html">Área Admin</a>
       </div>
     </div>
     <div class="footer-bottom">
       <p>© 2025 Ferragem Lendária · Moçambique · Todos os direitos reservados</p>
+      <p class="footer-signature">Página criada por <strong>Pensador Sem Fronteiras</strong> <em>"Do zero ao infinito"</em></p>
     </div>
   </div>
 </footer>
 
-<!-- ===== CARRINHO LATERAL ===== -->
+<!-- CARRINHO LATERAL -->
 <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
 <aside class="cart-panel" id="cartPanel">
   <div class="cart-header">
@@ -246,10 +237,7 @@
     <button onclick="toggleCart()" class="cart-close">✕</button>
   </div>
   <div class="cart-items" id="cartItems">
-    <div class="cart-empty">
-      <span>🛒</span>
-      <p>Carrinho vazio</p>
-    </div>
+    <div class="cart-empty"><span>🛒</span><p>Carrinho vazio</p></div>
   </div>
   <div class="cart-footer">
     <div class="cart-total">
@@ -263,7 +251,7 @@
   </div>
 </aside>
 
-<!-- ===== MODAL PRODUTO ===== -->
+<!-- MODAL PRODUTO / FATURA -->
 <div class="modal-overlay" id="productModal" onclick="closeProductModal(event)">
   <div class="modal-box">
     <button class="modal-close" onclick="document.getElementById('productModal').classList.remove('active')">✕</button>
@@ -271,12 +259,13 @@
   </div>
 </div>
 
-<script type="module">
-  import { db } from '../js/supabase-config.js';
-  window.db = db;
-
-  const SUPA_URL = 'https://vlkobipdenduyismnkpm.supabase.co';
-  const SUPA_KEY = 'sb_publishable_qWeCNdiMyftZ6ZMYDF9u_A_bOplqpiA';
+<script>
+  // Init Supabase for store (read-only public)
+  const { createClient } = supabase;
+  window.db = createClient(
+    'https://SEU_PROJECT_ID.supabase.co',
+    'SUA_ANON_KEY_AQUI'
+  );
 </script>
 <script src="js/store.js"></script>
 </body>
