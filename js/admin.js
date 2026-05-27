@@ -203,32 +203,286 @@ async function dbOp(table, op, data, matchCol, matchVal) {
 
 function seedDemoData() {
   adminData.categories = [
-    {id:'cat1',nome:'Ferramentas Manuais',icone:'🔨',descricao:'Martelos, chaves, alicates'},
-    {id:'cat2',nome:'Ferramentas Elétricas',icone:'⚡',descricao:'Furadeiras, serras'},
-    {id:'cat3',nome:'Parafusos e Fixadores',icone:'🔩',descricao:'Parafusos, porcas, pregos'},
-    {id:'cat4',nome:'Tubagens e Conexões',icone:'🔧',descricao:'Canos, joelhos, válvulas'},
-    {id:'cat5',nome:'Tintas e Acabamentos',icone:'🎨',descricao:'Tintas, vernizes, pincéis'},
-    {id:'cat6',nome:'Elétrica',icone:'💡',descricao:'Cabos, tomadas, disjuntores'},
-    {id:'cat7',nome:'Cimento e Argamassa',icone:'🏗️',descricao:'Cimento, areia, blocos'},
-    {id:'cat8',nome:'Madeira e Derivados',icone:'🪵',descricao:'Tábuas, MDF, portas'},
-    {id:'cat9',nome:'Segurança e EPI',icone:'🦺',descricao:'Capacetes, luvas, botas'},
-    {id:'cat10',nome:'Jardinagem',icone:'🌿',descricao:'Enxadas, mangueiras'},
-    {id:'cat11',nome:'Hidráulica',icone:'💧',descricao:'Bombas, filtros'},
-    {id:'cat12',nome:'Portões e Grades',icone:'🚪',descricao:'Portões, fechaduras'},
+    {id:'cat1', nome:'Ferramentas Manuais',    icone:'🔨', descricao:'Martelos, chaves, alicates, serrotes e mais'},
+    {id:'cat2', nome:'Ferramentas Elétricas',  icone:'⚡', descricao:'Furadeiras, serras, lixadeiras'},
+    {id:'cat3', nome:'Parafusos e Fixadores',  icone:'🔩', descricao:'Parafusos, porcas, pregos, rebites'},
+    {id:'cat4', nome:'Tubagens e Conexões',    icone:'🔧', descricao:'Canos PVC, joelhos, válvulas, calhas'},
+    {id:'cat5', nome:'Tintas e Acabamentos',   icone:'🎨', descricao:'Tintas, vernizes, primers, pincéis'},
+    {id:'cat6', nome:'Material Elétrico',      icone:'💡', descricao:'Cabos, disjuntores, contactores, quadros, interruptores, lâmpadas'},
+    {id:'cat7', nome:'Cimento e Construção',   icone:'🏗️', descricao:'Cimento, areia, blocos, argamassa'},
+    {id:'cat8', nome:'Madeira e Derivados',    icone:'🪵', descricao:'Tábuas, compensados, MDF, portas'},
+    {id:'cat9', nome:'Segurança e EPI',        icone:'🦺', descricao:'Capacetes, luvas isolantes, botas, óculos'},
+    {id:'cat10',nome:'Hidráulica e Bombas',    icone:'💧', descricao:'Motobombas, canos, filtros, acessórios'},
+    {id:'cat11',nome:'Jardinagem',             icone:'🌿', descricao:'Enxadas, pás, mangueiras, sementes'},
+    {id:'cat12',nome:'Portões e Grades',       icone:'🚪', descricao:'Portões, fechaduras, dobradiças, grades'},
   ];
+
+  // ── IMAGENS: todas do Unsplash (gratuito, sem watermark) ────────────────
   adminData.products = [
-    {id:'p1',nome:'Martelo Carpinteiro 500g',descricao:'Cabo de madeira resistente',preco:450,quantidade:30,quantidade_minima:5,categoria_id:'cat1',unidade:'un',ativo:true},
-    {id:'p2',nome:'Furadeira Elétrica 650W',descricao:'Furadeira de impacto variável',preco:5500,quantidade:3,quantidade_minima:5,categoria_id:'cat2',unidade:'un',ativo:true},
-    {id:'p3',nome:'Parafuso M8x40 (cx/50)',descricao:'Parafusos zincados',preco:280,quantidade:150,quantidade_minima:20,categoria_id:'cat3',unidade:'cx',ativo:true},
-    {id:'p4',nome:'Cano PVC 110mm 6m',descricao:'Cano de esgoto PVC',preco:780,quantidade:2,quantidade_minima:10,categoria_id:'cat4',unidade:'un',ativo:true},
-    {id:'p5',nome:'Tinta Acrílica Branca 20L',descricao:'Tinta lavável alta cobertura',preco:2800,quantidade:25,quantidade_minima:5,categoria_id:'cat5',unidade:'balde',ativo:true},
-    {id:'p6',nome:'Cabo Elétrico 2.5mm 100m',descricao:'Cabo de cobre flexível',preco:3200,quantidade:20,quantidade_minima:3,categoria_id:'cat6',unidade:'rolo',ativo:true},
-    {id:'p7',nome:'Cimento Portland 50kg',descricao:'CP II-F-32 alta qualidade',preco:950,quantidade:200,quantidade_minima:30,categoria_id:'cat7',unidade:'saco',ativo:true},
-    {id:'p8',nome:'Capacete de Segurança',descricao:'Classe A/B ajuste rápido',preco:380,quantidade:35,quantidade_minima:5,categoria_id:'cat9',unidade:'un',ativo:true},
+
+    // ── MATERIAL ELÉTRICO (cat6) ─────────────────────────────────────────
+    {id:'e01',nome:'Contactor Tripolar 25A 220V',
+     descricao:'Contactor tripolar para controlo de motores e cargas trifásicas. Bobina 220V AC, 3 polos NO, vida útil >1 milhão de ciclos.',
+     preco:1850,quantidade:18,quantidade_minima:3,categoria_id:'cat6',unidade:'un',ativo:true,
+     imagem_url:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80'},
+
+    {id:'e02',nome:'Contactor Tripolar 40A 220V',
+     descricao:'Contactor tripolar 40A para cargas pesadas, bobina 220V, encaixe em calha DIN. Ideal para quadros industriais.',
+     preco:2400,quantidade:12,quantidade_minima:3,categoria_id:'cat6',unidade:'un',ativo:true,
+     imagem_url:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80'},
+
+    {id:'e03',nome:'Disjuntor Bipolar 25A',
+     descricao:'Disjuntor termomagético bipolar 25A 220V. Protege curto-circuito e sobrecarga. Fixação em calha DIN.',
+     preco:520,quantidade:50,quantidade_minima:10,categoria_id:'cat6',unidade:'un',ativo:true,
+     imagem_url:'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=600&q=80'},
+
+    {id:'e04',nome:'Disjuntor Tripolar 32A',
+     descricao:'Disjuntor tripolar 32A para circuitos trifásicos, poder de corte 6kA, calha DIN 35mm.',
+     preco:980,quantidade:30,quantidade_minima:5,categoria_id:'cat6',unidade:'un',ativo:true,
+     imagem_url:'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=600&q=80'},
+
+    {id:'e05',nome:'Disjuntor Geral 63A Bipolar',
+     descricao:'Disjuntor principal bipolar 63A, ideal como protecção geral de instalação residencial ou comercial.',
+     preco:1350,quantidade:20,quantidade_minima:5,categoria_id:'cat6',unidade:'un',ativo:true,
+     imagem_url:'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=600&q=80'},
+
+    {id:'e06',nome:'Cabo Elétrico 1.5mm² Rolo 100m',
+     descricao:'Cabo flexível de cobre 1.5mm², isolamento em PVC 70°C, 450/750V. Rolo com 100 metros. Cor: vermelho/preto/verde.',
+     preco:2200,quantidade:35,quantidade_minima:5,categoria_id:'cat6',unidade:'rolo',ativo:true,
+     imagem_url:'https://images.unsplash.com/photo-1509390874189-a62ca12ea7ab?w=600&q=80'},
+
+    {id:'e07',nome:'Cabo Elétrico 2.5mm² Rolo 100m',
+     descricao:'Cabo de cobre flexível 2.5mm² para circuitos de tomadas. Isolamento PVC, 450/750V, rolo 100m.',
+     preco:3200,quantidade:28,quantidade_minima:5,categoria_id:'cat6',unidade:'rolo',ativo:true,
+     imagem_url:'https://images.unsplash.com/photo-1509390874189-a62ca12ea7ab?w=600&q=80'},
+
+    {id:'e08',nome:'Cabo Elétrico 4mm² Rolo 100m',
+     descricao:'Cabo flexível 4mm² para circuitos de alta potência (AC, chuveiros). Cobre puro, isolamento PVC.',
+     preco:4800,quantidade:20,quantidade_minima:3,categoria_id:'cat6',unidade:'rolo',ativo:true,
+     imagem_url:'https://images.unsplash.com/photo-1509390874189-a62ca12ea7ab?w=600&q=80'},
+
+    {id:'e09',nome:'Cabo Elétrico 6mm² Rolo 50m',
+     descricao:'Cabo 6mm² para quadros e alimentações principais. Alta condutividade, isolamento duplo PVC.',
+     preco:5500,quantidade:15,quantidade_minima:3,categoria_id:'cat6',unidade:'rolo',ativo:true,
+     imagem_url:'https://images.unsplash.com/photo-1509390874189-a62ca12ea7ab?w=600&q=80'},
+
+    {id:'e10',nome:'Fio Terra Verde/Amarelo 2.5mm² 100m',
+     descricao:'Fio de terra com isolamento verde/amarelo, identificação obrigatória nas instalações. Cobre puro 2.5mm².',
+     preco:2800,quantidade:25,quantidade_minima:5,categoria_id:'cat6',unidade:'rolo',ativo:true,
+     imagem_url:'https://images.unsplash.com/photo-1509390874189-a62ca12ea7ab?w=600&q=80'},
+
+    {id:'e11',nome:'Quadro de Distribuição 12 Disjuntores',
+     descricao:'Quadro metálico embutir/sobrepor, 12 disjuntores, porta com chave, barra de neutro e terra incluída.',
+     preco:3800,quantidade:10,quantidade_minima:2,categoria_id:'cat6',unidade:'un',ativo:true,
+     imagem_url:'https://images.unsplash.com/photo-1565688527197-7f1b9f1aad0e?w=600&q=80'},
+
+    {id:'e12',nome:'Quadro Painel Industrial 24 Módulos',
+     descricao:'Painel de distribuição industrial 24 módulos, chapa galvanizada, calha DIN, grau IP40.',
+     preco:6500,quantidade:6,quantidade_minima:2,categoria_id:'cat6',unidade:'un',ativo:true,
+     imagem_url:'https://images.unsplash.com/photo-1565688527197-7f1b9f1aad0e?w=600&q=80'},
+
+    {id:'e13',nome:'Interruptor Simples de Embutir',
+     descricao:'Interruptor simples 10A 250V para embutir na parede. Acabamento branco, parafusos incluídos.',
+     preco:180,quantidade:120,quantidade_minima:20,categoria_id:'cat6',unidade:'un',ativo:true,
+     imagem_url:'https://images.unsplash.com/photo-1609767432630-f8e5e84d3b28?w=600&q=80'},
+
+    {id:'e14',nome:'Interruptor Duplo de Embutir',
+     descricao:'Interruptor duplo (two-way) 10A 250V, controla iluminação de dois pontos. Cor branca.',
+     preco:280,quantidade:80,quantidade_minima:15,categoria_id:'cat6',unidade:'un',ativo:true,
+     imagem_url:'https://images.unsplash.com/photo-1609767432630-f8e5e84d3b28?w=600&q=80'},
+
+    {id:'e15',nome:'Tomada 2P+T 16A de Embutir',
+     descricao:'Tomada bipolar com terra 16A 250V, embutir, com protecção infantil. Compatível com caixas standard.',
+     preco:220,quantidade:150,quantidade_minima:20,categoria_id:'cat6',unidade:'un',ativo:true,
+     imagem_url:'https://images.unsplash.com/photo-1609767432630-f8e5e84d3b28?w=600&q=80'},
+
+    {id:'e16',nome:'Lâmpada LED 9W Bulb E27 6500K',
+     descricao:'Lâmpada LED bulbo 9W equivale a 60W incandescente. Base E27, luz branca fria 6500K, vida útil 25.000h.',
+     preco:150,quantidade:200,quantidade_minima:30,categoria_id:'cat6',unidade:'un',ativo:true,
+     imagem_url:'https://images.unsplash.com/photo-1567427017947-545c5f8d16ad?w=600&q=80'},
+
+    {id:'e17',nome:'Lâmpada LED 18W Tubular T8 60cm',
+     descricao:'Lâmpada tubular LED T8 18W, 60cm, 1800 lúmens, luz branca 6000K. Substitui fluorescente 36W.',
+     preco:380,quantidade:80,quantidade_minima:15,categoria_id:'cat6',unidade:'un',ativo:true,
+     imagem_url:'https://images.unsplash.com/photo-1567427017947-545c5f8d16ad?w=600&q=80'},
+
+    {id:'e18',nome:'Lâmpada Halogênio 50W GU10',
+     descricao:'Lâmpada halogênio dicroica 50W GU10 para spots embutidos e trilhos de iluminação.',
+     preco:120,quantidade:60,quantidade_minima:10,categoria_id:'cat6',unidade:'un',ativo:true,
+     imagem_url:'https://images.unsplash.com/photo-1567427017947-545c5f8d16ad?w=600&q=80'},
+
+    {id:'e19',nome:'Lâmpada LED Reflectora 20W E27',
+     descricao:'Lâmpada LED reflectora PAR38 20W, E27, facho 45°, ideal para iluminação exterior e industrial.',
+     preco:450,quantidade:40,quantidade_minima:8,categoria_id:'cat6',unidade:'un',ativo:true,
+     imagem_url:'https://images.unsplash.com/photo-1567427017947-545c5f8d16ad?w=600&q=80'},
+
+    {id:'e20',nome:'Calha DIN 35mm Ranhura 2m',
+     descricao:'Calha metálica DIN 35mm para montagem de disjuntores e contactores em quadros. Comprimento 2 metros.',
+     preco:320,quantidade:40,quantidade_minima:5,categoria_id:'cat6',unidade:'un',ativo:true,
+     imagem_url:'https://images.unsplash.com/photo-1565688527197-7f1b9f1aad0e?w=600&q=80'},
+
+    {id:'e21',nome:'Chave Selectora 3 Posições',
+     descricao:'Chave selectora rotativa 3 posições (0-1-2), 16A 600V, para painéis de comando industrial.',
+     preco:680,quantidade:22,quantidade_minima:4,categoria_id:'cat6',unidade:'un',ativo:true,
+     imagem_url:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80'},
+
+    {id:'e22',nome:'Chave Selectora 2 Posições c/ Chave',
+     descricao:'Chave selectora com encravamento por chave metálica, 2 posições, IP65, para quadros exteriores.',
+     preco:890,quantidade:15,quantidade_minima:3,categoria_id:'cat6',unidade:'un',ativo:true,
+     imagem_url:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80'},
+
+    {id:'e23',nome:'Relé Térmico 9–13A',
+     descricao:'Relé térmico de sobrecarga ajustável 9–13A, para protecção de motores, encaixa em contactores.',
+     preco:1100,quantidade:12,quantidade_minima:3,categoria_id:'cat6',unidade:'un',ativo:true,
+     imagem_url:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80'},
+
+    {id:'e24',nome:'Temporizador Digital 24h DIN',
+     descricao:'Temporizador programável digital 24h/7 dias, 16A, fixação em calha DIN, para automação de circuitos.',
+     preco:950,quantidade:18,quantidade_minima:3,categoria_id:'cat6',unidade:'un',ativo:true,
+     imagem_url:'https://images.unsplash.com/photo-1565688527197-7f1b9f1aad0e?w=600&q=80'},
+
+    // ── FERRAMENTAS MANUAIS (cat1) ────────────────────────────────────────
+    {id:'m01',nome:'Alicate Universal 8"',
+     descricao:'Alicate universal aço cromo-vanádio, cabo bi-material antiderrapante, articulação de alta precisão.',
+     preco:520,quantidade:35,quantidade_minima:5,categoria_id:'cat1',unidade:'un',ativo:true,
+     imagem_url:'https://images.unsplash.com/photo-1572981779307-38b8cabb2407?w=600&q=80'},
+
+    {id:'m02',nome:'Alicate de Corte Lateral 6"',
+     descricao:'Alicate de corte diagonal 6", aço temperado, corta cobre e alumínio. Cabo isolado 1000V.',
+     preco:380,quantidade:40,quantidade_minima:8,categoria_id:'cat1',unidade:'un',ativo:true,
+     imagem_url:'https://images.unsplash.com/photo-1572981779307-38b8cabb2407?w=600&q=80'},
+
+    {id:'m03',nome:'Alicate de Pressão 10"',
+     descricao:'Alicate de pressão regulável (grip), mandíbulas serrilhadas, aço carbono, bloqueio instantâneo.',
+     preco:650,quantidade:25,quantidade_minima:5,categoria_id:'cat1',unidade:'un',ativo:true,
+     imagem_url:'https://images.unsplash.com/photo-1572981779307-38b8cabb2407?w=600&q=80'},
+
+    {id:'m04',nome:'Martelo de Carpinteiro 500g',
+     descricao:'Martelo de orelha com cabo de madeira de nogueira, cabeça de aço forjado 500g. Extrai pregos com facilidade.',
+     preco:450,quantidade:30,quantidade_minima:5,categoria_id:'cat1',unidade:'un',ativo:true,
+     imagem_url:'https://images.unsplash.com/photo-1504148455328-c376907d081c?w=600&q=80'},
+
+    {id:'m05',nome:'Chave de Fendas Jogo 6 Peças',
+     descricao:'Jogo 6 chaves de fendas: 3 fenda plana + 3 Philips. Cabos ergonómicos, pontas tratadas termicamente.',
+     preco:680,quantidade:28,quantidade_minima:5,categoria_id:'cat1',unidade:'jogo',ativo:true,
+     imagem_url:'https://images.unsplash.com/photo-1504148455328-c376907d081c?w=600&q=80'},
+
+    {id:'m06',nome:'Chave Inglesa Ajustável 12"',
+     descricao:'Chave inglesa ajustável 12" (300mm), abertura máxima 34mm, aço cromo-vanádio polido.',
+     preco:780,quantidade:20,quantidade_minima:4,categoria_id:'cat1',unidade:'un',ativo:true,
+     imagem_url:'https://images.unsplash.com/photo-1504148455328-c376907d081c?w=600&q=80'},
+
+    {id:'m07',nome:'Fita Métrica 5m Magnética',
+     descricao:'Fita métrica 5m com gancho magnético, largura 25mm, travão automático, carcaça borrachada.',
+     preco:320,quantidade:50,quantidade_minima:10,categoria_id:'cat1',unidade:'un',ativo:true,
+     imagem_url:'https://images.unsplash.com/photo-1504148455328-c376907d081c?w=600&q=80'},
+
+    // ── FERRAMENTAS ELÉTRICAS (cat2) ──────────────────────────────────────
+    {id:'f01',nome:'Furadeira de Impacto 750W',
+     descricao:'Furadeira de impacto 750W, mandril 13mm SDS, 2 velocidades, punho lateral, maleta incluída.',
+     preco:6800,quantidade:8,quantidade_minima:2,categoria_id:'cat2',unidade:'un',ativo:true,
+     imagem_url:'https://images.unsplash.com/photo-1581092335397-9583eb92d232?w=600&q=80'},
+
+    {id:'f02',nome:'Serra Circular 1400W 7-1/4"',
+     descricao:'Serra circular 1400W, disco 185mm, profundidade corte 66mm, guia paralelo e disco incluídos.',
+     preco:8500,quantidade:5,quantidade_minima:2,categoria_id:'cat2',unidade:'un',ativo:true,
+     imagem_url:'https://images.unsplash.com/photo-1581092335397-9583eb92d232?w=600&q=80'},
+
+    {id:'f03',nome:'Esmerilhadora Angular 850W 4.5"',
+     descricao:'Rebarbadora angular 850W, disco 115mm, proteção regulável, interruptor de segurança.',
+     preco:4200,quantidade:10,quantidade_minima:2,categoria_id:'cat2',unidade:'un',ativo:true,
+     imagem_url:'https://images.unsplash.com/photo-1581092335397-9583eb92d232?w=600&q=80'},
+
+    // ── HIDRÁULICA E BOMBAS (cat10) ───────────────────────────────────────
+    {id:'h01',nome:'Motobomba 1HP Monofásica 220V',
+     descricao:'Motobomba centrífuga 1HP, 220V, caudal máx 5.400 L/h, altura 40m. Para poços e cisternas.',
+     preco:15500,quantidade:6,quantidade_minima:2,categoria_id:'cat10',unidade:'un',ativo:true,
+     imagem_url:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80'},
+
+    {id:'h02',nome:'Motobomba 0.5HP Submersível',
+     descricao:'Bomba submersível 0.5HP 220V, inox, para poços profundos até 30m, caudal 3.000 L/h.',
+     preco:12000,quantidade:4,quantidade_minima:2,categoria_id:'cat10',unidade:'un',ativo:true,
+     imagem_url:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80'},
+
+    {id:'h03',nome:'Tubo PVC Pressão 1/2" 6m',
+     descricao:'Tubo PVC rígido para pressão 1/2" (20mm), PN 10, 6 metros. Aprovado para água potável.',
+     preco:380,quantidade:60,quantidade_minima:10,categoria_id:'cat10',unidade:'un',ativo:true,
+     imagem_url:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80'},
+
+    {id:'h04',nome:'Tubo PVC Pressão 3/4" 6m',
+     descricao:'Tubo PVC rígido para pressão 3/4" (25mm), PN 10, 6 metros. Alta resistência UV.',
+     preco:520,quantidade:45,quantidade_minima:8,categoria_id:'cat10',unidade:'un',ativo:true,
+     imagem_url:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80'},
+
+    {id:'h05',nome:'Torneira Bola 1/2" Latão',
+     descricao:'Torneira de esfera 1/2" em latão cromado, haste longa, alta durabilidade, pressão até 16 bar.',
+     preco:480,quantidade:40,quantidade_minima:8,categoria_id:'cat10',unidade:'un',ativo:true,
+     imagem_url:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80'},
+
+    // ── SEGURANÇA E EPI (cat9) ────────────────────────────────────────────
+    {id:'s01',nome:'Luvas Isolantes 1000V Classe 0',
+     descricao:'Luvas dieléctricas para trabalhos sob tensão até 1000V, testadas conforme IEC 60903, tamanho M/G.',
+     preco:1800,quantidade:20,quantidade_minima:4,categoria_id:'cat9',unidade:'par',ativo:true,
+     imagem_url:'https://images.unsplash.com/photo-1572981779307-38b8cabb2407?w=600&q=80'},
+
+    {id:'s02',nome:'Capacete de Obra com Ventilação',
+     descricao:'Capacete de protecção classe A/B com ventilação lateral, ajuste por catraca, certificado EN397.',
+     preco:420,quantidade:30,quantidade_minima:5,categoria_id:'cat9',unidade:'un',ativo:true,
+     imagem_url:'https://images.unsplash.com/photo-1579820010410-c10411aaaa88?w=600&q=80'},
+
+    {id:'s03',nome:'Óculos de Protecção Anti-Risco',
+     descricao:'Óculos panorâmicos policarbonato anti-risco e anti-embaciamento, protecção UV. Certificado CE.',
+     preco:220,quantidade:50,quantidade_minima:10,categoria_id:'cat9',unidade:'un',ativo:true,
+     imagem_url:'https://images.unsplash.com/photo-1579820010410-c10411aaaa88?w=600&q=80'},
+
+    {id:'s04',nome:'Colete Reflector Alta Visibilidade',
+     descricao:'Colete de alta visibilidade classe 2, faixas retro-reflectoras, EN ISO 20471. Tamanho único.',
+     preco:280,quantidade:40,quantidade_minima:8,categoria_id:'cat9',unidade:'un',ativo:true,
+     imagem_url:'https://images.unsplash.com/photo-1579820010410-c10411aaaa88?w=600&q=80'},
+
+    // ── TUBAGENS / CALHAS (cat4) ──────────────────────────────────────────
+    {id:'t01',nome:'Calha Corrugada Flexível 20mm 50m',
+     descricao:'Calha corrugada flexível PVC 20mm para protecção de cabos. Rolo 50 metros, cor cinza.',
+     preco:680,quantidade:30,quantidade_minima:5,categoria_id:'cat4',unidade:'rolo',ativo:true,
+     imagem_url:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80'},
+
+    {id:'t02',nome:'Calha PVC Canaleta 20x10mm 2m',
+     descricao:'Canaleta PVC rígida 20x10mm para organização de cabos em parede. Comprimento 2m, com tampa.',
+     preco:180,quantidade:80,quantidade_minima:15,categoria_id:'cat4',unidade:'un',ativo:true,
+     imagem_url:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80'},
+
+    {id:'t03',nome:'Calha PVC Canaleta 40x25mm 2m',
+     descricao:'Canaleta PVC 40x25mm para instalações comerciais. Alta capacidade, com tampas e acessórios.',
+     preco:320,quantidade:50,quantidade_minima:10,categoria_id:'cat4',unidade:'un',ativo:true,
+     imagem_url:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80'},
+
+    {id:'t04',nome:'Tubo Eletroduto PVC 3/4" 3m',
+     descricao:'Electroduto PVC rígido 3/4" (25mm) para embutir em paredes e lajes. Norma NBR 15465.',
+     preco:220,quantidade:100,quantidade_minima:20,categoria_id:'cat4',unidade:'un',ativo:true,
+     imagem_url:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80'},
+
+    // ── TINTAS (cat5) ─────────────────────────────────────────────────────
+    {id:'v01',nome:'Tinta Acrílica Branca 20L',
+     descricao:'Tinta acrílica lavável acabamento mate, excelente cobertura. Rend. 280m² (2 demãos).',
+     preco:2800,quantidade:25,quantidade_minima:5,categoria_id:'cat5',unidade:'balde',ativo:true,
+     imagem_url:'https://images.unsplash.com/photo-1562259949-e8e7689d7828?w=600&q=80'},
+
+    {id:'v02',nome:'Esmalte Sintético Preto Brilhante 1L',
+     descricao:'Esmalte sintético de alta qualidade para madeira e metal. Cor preto brilhante, 1 litro.',
+     preco:580,quantidade:30,quantidade_minima:6,categoria_id:'cat5',unidade:'L',ativo:true,
+     imagem_url:'https://images.unsplash.com/photo-1562259949-e8e7689d7828?w=600&q=80'},
+
+    // ── CIMENTO (cat7) ────────────────────────────────────────────────────
+    {id:'c01',nome:'Cimento Portland 50kg',
+     descricao:'Cimento Portland CP II-F-32, alta qualidade para alvenaria, rebocos e estruturas em geral.',
+     preco:950,quantidade:200,quantidade_minima:30,categoria_id:'cat7',unidade:'saco',ativo:true,
+     imagem_url:'https://images.unsplash.com/photo-1581092335397-9583eb92d232?w=600&q=80'},
+
   ];
+
   adminData.debts = [
-    {id:'d1',tipo:'a_receber',nome_contato:'João Machava',telefone:'+258841234567',descricao:'Materiais construção',valor:15000,valor_pago:5000,data_vencimento:'2025-08-30',status:'parcial',notificar:true,created_at:new Date().toISOString()},
-    {id:'d2',tipo:'a_pagar',nome_contato:'Fornecedor Silva',telefone:'+258849876543',descricao:'Compra de ferramentas',valor:45000,valor_pago:0,data_vencimento:'2025-07-15',status:'pendente',notificar:true,created_at:new Date().toISOString()},
+    {id:'d1',tipo:'a_receber',nome_contato:'João Machava',telefone:'+258841234567',descricao:'Materiais construção obra Maputo',valor:15000,valor_pago:5000,data_vencimento:'2025-08-30',status:'parcial',notificar:true,created_at:new Date().toISOString()},
+    {id:'d2',tipo:'a_pagar',nome_contato:'Fornecedor Silva Eléctricos',telefone:'+258849876543',descricao:'Compra de contactores e disjuntores',valor:45000,valor_pago:0,data_vencimento:'2025-07-15',status:'pendente',notificar:true,created_at:new Date().toISOString()},
   ];
   saveLocal();
 }
@@ -282,8 +536,17 @@ function renderAdminProducts() {
     const sl= p.quantidade===0?'Esgotado':p.quantidade<=p.quantidade_minima?'Stock Baixo':'OK';
     return `<tr>
       <td>
-        <span style="font-size:.65rem;font-family:monospace;background:var(--black-4);color:var(--gray-light);padding:.1rem .4rem;border-radius:3px;display:inline-block;margin-bottom:.25rem">ID: ${p.id}</span><br/>
-        <strong style="color:var(--white)">${p.nome}</strong><br/><small style="color:var(--gray-light)">${(p.descricao||'').slice(0,50)}</small>
+        <div style="display:flex;gap:.75rem;align-items:center">
+          <div style="width:48px;height:48px;border-radius:6px;overflow:hidden;background:var(--black-4);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1.5rem">
+            ${p.imagem_url
+              ? `<img src="${p.imagem_url}" style="width:100%;height:100%;object-fit:cover" onerror="this.parentElement.innerHTML='${c?.icone||'🔧'}'" />`
+              : (c?.icone||'🔧')}
+          </div>
+          <div>
+            <span style="font-size:.65rem;font-family:monospace;background:var(--black-4);color:var(--gray-light);padding:.1rem .4rem;border-radius:3px;display:inline-block;margin-bottom:.2rem">ID: ${p.id}</span><br/>
+            <strong style="color:var(--white)">${p.nome}</strong><br/><small style="color:var(--gray-light)">${(p.descricao||'').slice(0,45)}</small>
+          </div>
+        </div>
       </td>
       <td>${c?.icone||''} ${c?.nome||'—'}</td>
       <td style="color:var(--orange);font-family:var(--font-head);font-weight:700">${fmz(p.preco)} MT</td>
@@ -308,14 +571,47 @@ async function updateStockInline(id) {
 
 function openProductForm(id=null) {
   const p = id ? adminData.products.find(x=>x.id===id) : null;
+  const currentImg = p?.imagem_url || '';
   document.getElementById('modalTitle').textContent = p ? 'Editar Produto' : 'Novo Produto';
   document.getElementById('adminModalContent').innerHTML = `
     <div class="form-grid">
-      <div class="form-group full"><label class="form-label">Nome *</label><input class="form-input" id="fNome" value="${p?.nome||''}" placeholder="Ex: Martelo 500g" /></div>
+
+      <!-- IMAGEM — upload ou URL -->
+      <div class="form-group full">
+        <label class="form-label">Imagem do Produto</label>
+        <div class="img-upload-area" id="imgUploadArea">
+          <div class="img-preview-wrap" id="imgPreviewWrap">
+            ${currentImg
+              ? `<img src="${currentImg}" id="imgPreview" class="img-preview-thumb" />`
+              : `<div class="img-preview-placeholder" id="imgPreviewWrap"><span>🖼️</span><p>Sem imagem</p></div>`}
+          </div>
+          <div class="img-upload-actions">
+            <button type="button" class="img-btn img-btn-camera" onclick="document.getElementById('fImgFile').click()">
+              📷 Câmara / Galeria
+            </button>
+            <input type="file" id="fImgFile" accept="image/*" capture="environment" style="display:none" onchange="handleImageFile(event)" />
+            <div class="img-url-row">
+              <input class="form-input" id="fImg" value="${currentImg}" placeholder="Ou cole URL da imagem aqui..." oninput="previewFromUrl(this.value)" />
+              <button type="button" class="img-btn-url" onclick="previewFromUrl(document.getElementById('fImg').value)">👁</button>
+            </div>
+            ${currentImg ? `<button type="button" class="img-btn-clear" onclick="clearImage()">✕ Remover imagem</button>` : ''}
+          </div>
+        </div>
+
+        <!-- Galeria de sugestões de imagens por categoria -->
+        <div style="margin-top:.75rem">
+          <label class="form-label" style="margin-bottom:.5rem;display:block">💡 Sugestões de imagens — clique para usar</label>
+          <div class="img-suggestions" id="imgSuggestions">
+            <div style="color:var(--gray-light);font-size:.82rem">Selecione uma categoria para ver sugestões</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group full"><label class="form-label">Nome *</label><input class="form-input" id="fNome" value="${p?.nome||''}" placeholder="Ex: Contactor 25A 220V" /></div>
       <div class="form-group full"><label class="form-label">Descrição</label><textarea class="form-textarea" id="fDesc">${p?.descricao||''}</textarea></div>
       <div class="form-group"><label class="form-label">Preço (MT) *</label><input class="form-input" id="fPreco" type="number" value="${p?.preco||''}" /></div>
       <div class="form-group"><label class="form-label">Categoria *</label>
-        <select class="form-select" id="fCat">
+        <select class="form-select" id="fCat" onchange="loadImgSuggestions(this.value)">
           <option value="">Selecionar...</option>
           ${adminData.categories.map(c=>`<option value="${c.id}"${p?.categoria_id===c.id?' selected':''}>${c.icone} ${c.nome}</option>`).join('')}
         </select>
@@ -327,13 +623,139 @@ function openProductForm(id=null) {
           ${['un','cx','kg','saco','rolo','balde','par','m','m²','L'].map(u=>`<option value="${u}"${p?.unidade===u?' selected':''}>${u}</option>`).join('')}
         </select>
       </div>
-      <div class="form-group"><label class="form-label">URL da Imagem</label><input class="form-input" id="fImg" value="${p?.imagem_url||''}" placeholder="https://..."</div>
     </div>
     <div class="form-footer">
       <button class="btn-clear" onclick="document.getElementById('adminModal').classList.remove('active')">Cancelar</button>
-      <button class="btn-orange" onclick="saveProduct('${id||''}')">💾 Guardar</button>
+      <button class="btn-orange" onclick="saveProduct('${id||''}')">💾 Guardar Produto</button>
     </div>`;
+
   document.getElementById('adminModal').classList.add('active');
+  // Auto-load suggestions if editing existing product
+  if (p?.categoria_id) loadImgSuggestions(p.categoria_id);
+}
+
+// ── Image upload helpers ──────────────────────────────────────
+function handleImageFile(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    const dataUrl = e.target.result;
+    document.getElementById('fImg').value = dataUrl;
+    setImagePreview(dataUrl);
+  };
+  reader.readAsDataURL(file);
+}
+
+function previewFromUrl(url) {
+  if (!url) return;
+  setImagePreview(url);
+}
+
+function setImagePreview(src) {
+  const wrap = document.getElementById('imgPreviewWrap');
+  if (!wrap) return;
+  wrap.innerHTML = `<img src="${src}" class="img-preview-thumb" id="imgPreview"
+    onerror="this.parentElement.innerHTML='<div class=\\"img-preview-placeholder\\"><span>❌</span><p>URL inválido</p></div>'" />`;
+}
+
+function clearImage() {
+  document.getElementById('fImg').value = '';
+  const wrap = document.getElementById('imgPreviewWrap');
+  if (wrap) wrap.innerHTML = `<div class="img-preview-placeholder"><span>🖼️</span><p>Sem imagem</p></div>`;
+}
+
+// ── Image suggestions by category ────────────────────────────
+const IMG_SUGGESTIONS = {
+  // Material Elétrico
+  cat6: [
+    { label:'Contactor',    url:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80' },
+    { label:'Disjuntor',    url:'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=400&q=80' },
+    { label:'Cabo Elétrico',url:'https://images.unsplash.com/photo-1509390874189-a62ca12ea7ab?w=400&q=80' },
+    { label:'Lâmpada LED',  url:'https://images.unsplash.com/photo-1567427017947-545c5f8d16ad?w=400&q=80' },
+    { label:'Quadro Painel',url:'https://images.unsplash.com/photo-1565688527197-7f1b9f1aad0e?w=400&q=80' },
+    { label:'Interruptor',  url:'https://images.unsplash.com/photo-1609767432630-f8e5e84d3b28?w=400&q=80' },
+    { label:'Tomada',       url:'https://images.unsplash.com/photo-1609767432630-f8e5e84d3b28?w=400&q=80' },
+    { label:'Fio Terra',    url:'https://images.unsplash.com/photo-1509390874189-a62ca12ea7ab?w=400&q=80' },
+  ],
+  // Ferramentas Manuais
+  cat1: [
+    { label:'Alicate',      url:'https://images.unsplash.com/photo-1572981779307-38b8cabb2407?w=400&q=80' },
+    { label:'Martelo',      url:'https://images.unsplash.com/photo-1504148455328-c376907d081c?w=400&q=80' },
+    { label:'Chave Fenda',  url:'https://images.unsplash.com/photo-1504148455328-c376907d081c?w=400&q=80' },
+    { label:'Ferramentas',  url:'https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=400&q=80' },
+  ],
+  // Ferramentas Elétricas
+  cat2: [
+    { label:'Furadeira',    url:'https://images.unsplash.com/photo-1581092335397-9583eb92d232?w=400&q=80' },
+    { label:'Serra',        url:'https://images.unsplash.com/photo-1581092335397-9583eb92d232?w=400&q=80' },
+    { label:'Esmerilhadora',url:'https://images.unsplash.com/photo-1572981779307-38b8cabb2407?w=400&q=80' },
+  ],
+  // Tubagens / Calhas
+  cat4: [
+    { label:'Tubo PVC',     url:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80' },
+    { label:'Calha',        url:'https://images.unsplash.com/photo-1565688527197-7f1b9f1aad0e?w=400&q=80' },
+    { label:'Conexões',     url:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80' },
+  ],
+  // Tintas
+  cat5: [
+    { label:'Tinta',        url:'https://images.unsplash.com/photo-1562259949-e8e7689d7828?w=400&q=80' },
+    { label:'Pintura',      url:'https://images.unsplash.com/photo-1562259929-b4e1fd3aef09?w=400&q=80' },
+  ],
+  // Cimento
+  cat7: [
+    { label:'Cimento',      url:'https://images.unsplash.com/photo-1581092335397-9583eb92d232?w=400&q=80' },
+    { label:'Construção',   url:'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=400&q=80' },
+  ],
+  // Segurança
+  cat9: [
+    { label:'Luvas',        url:'https://images.unsplash.com/photo-1572981779307-38b8cabb2407?w=400&q=80' },
+    { label:'Capacete',     url:'https://images.unsplash.com/photo-1579820010410-c10411aaaa88?w=400&q=80' },
+    { label:'EPI',          url:'https://images.unsplash.com/photo-1579820010410-c10411aaaa88?w=400&q=80' },
+  ],
+  // Hidráulica / Bombas
+  cat10: [
+    { label:'Motobomba',    url:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80' },
+    { label:'Tubo Pressão', url:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80' },
+  ],
+};
+
+function loadImgSuggestions(catId) {
+  const box = document.getElementById('imgSuggestions');
+  if (!box) return;
+  // Match by catId or by nome
+  let suggestions = IMG_SUGGESTIONS[catId];
+  if (!suggestions) {
+    // try matching by category name keywords
+    const cat = adminData.categories.find(c=>c.id===catId);
+    const nome = (cat?.nome||'').toLowerCase();
+    if (nome.includes('elé') || nome.includes('elet')) suggestions = IMG_SUGGESTIONS.cat6;
+    else if (nome.includes('manual') || nome.includes('ferram')) suggestions = IMG_SUGGESTIONS.cat1;
+    else if (nome.includes('elétr') || nome.includes('furadeira')) suggestions = IMG_SUGGESTIONS.cat2;
+    else if (nome.includes('tub') || nome.includes('calha')) suggestions = IMG_SUGGESTIONS.cat4;
+    else if (nome.includes('tinta') || nome.includes('acab')) suggestions = IMG_SUGGESTIONS.cat5;
+    else if (nome.includes('ciment') || nome.includes('const')) suggestions = IMG_SUGGESTIONS.cat7;
+    else if (nome.includes('segur') || nome.includes('epi')) suggestions = IMG_SUGGESTIONS.cat9;
+    else if (nome.includes('bom') || nome.includes('hidrá')) suggestions = IMG_SUGGESTIONS.cat10;
+  }
+  if (!suggestions || !suggestions.length) {
+    box.innerHTML = '<div style="color:var(--gray-light);font-size:.82rem">Sem sugestões para esta categoria</div>';
+    return;
+  }
+  box.innerHTML = suggestions.map(s => `
+    <div class="img-suggestion-item" onclick="applySuggestion('${s.url}')" title="${s.label}">
+      <img src="${s.url}" alt="${s.label}" loading="lazy" />
+      <span>${s.label}</span>
+    </div>`).join('');
+}
+
+function applySuggestion(url) {
+  document.getElementById('fImg').value = url;
+  setImagePreview(url);
+  // highlight selected
+  document.querySelectorAll('.img-suggestion-item').forEach(el => {
+    el.classList.toggle('selected', el.querySelector('img')?.src === url || el.onclick?.toString().includes(url));
+  });
 }
 
 async function saveProduct(id) {
@@ -341,20 +763,28 @@ async function saveProduct(id) {
   const preco=parseFloat(document.getElementById('fPreco').value);
   const cat=document.getElementById('fCat').value;
   if(!nome||!preco||!cat){showToast('Preencha os campos obrigatórios!','error');return;}
+
+  // Image: could be URL or base64 from file upload
+  const imgVal = document.getElementById('fImg').value || null;
+
   const data={nome,descricao:document.getElementById('fDesc').value,preco,categoria_id:cat,
     quantidade:parseInt(document.getElementById('fQty').value)||0,
     quantidade_minima:parseInt(document.getElementById('fQtyMin').value)||5,
     unidade:document.getElementById('fUnit').value,
-    imagem_url:document.getElementById('fImg').value||null,ativo:true};
+    imagem_url: imgVal, ativo:true};
+
   if(id){
     const i=adminData.products.findIndex(p=>p.id===id);
     if(i!==-1) adminData.products[i]={...adminData.products[i],...data};
-    await dbOp('produtos','update',data,'id',id);
+    // Only send to Supabase if URL (not base64 — too large)
+    const dbData = imgVal?.startsWith('data:') ? {...data, imagem_url: null} : data;
+    await dbOp('produtos','update',dbData,'id',id);
     showToast('Produto actualizado!','success');
   } else {
     const np={id:'p'+Date.now(),...data};
     adminData.products.push(np);
-    await dbOp('produtos','insert',data);
+    const dbData = imgVal?.startsWith('data:') ? {...data, imagem_url: null} : data;
+    await dbOp('produtos','insert',dbData);
     showToast('Produto criado!','success');
   }
   saveLocal();

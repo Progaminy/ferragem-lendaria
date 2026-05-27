@@ -251,8 +251,8 @@
 <script>
   // Bootstrap: expose db & Auth before admin.js loads
   const { createClient } = supabase;
-  const SUPA_URL = 'https://vlkobipdenduyismnkpm.supabase.co';
-  const SUPA_KEY = 'sb_publishable_qWeCNdiMyftZ6ZMYDF9u_A_bOplqpiA';
+  const SUPA_URL = 'https://SEU_PROJECT_ID.supabase.co';
+  const SUPA_KEY = 'SUA_ANON_KEY_AQUI';
   window.db = createClient(SUPA_URL, SUPA_KEY);
   window.Auth = {
     async signIn(email, password) {

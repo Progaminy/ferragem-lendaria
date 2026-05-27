@@ -7,8 +7,8 @@
 // 3. Copie o "Project URL" e a "anon public" key
 // 4. Cole abaixo substituindo os valores
 
-const SUPABASE_URL = 'https://SEU_PROJECT_ID.supabase.co';
-const SUPABASE_ANON_KEY = 'SUA_ANON_KEY_AQUI';
+const SUPABASE_URL = 'https://vlkobipdenduyismnkpm.supabase.co';
+const SUPABASE_ANON_KEY = 'sb_publishable_qWeCNdiMyftZ6ZMYDF9u_A_bOplqpiA';
 
 const { createClient } = supabase;
 const db = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
